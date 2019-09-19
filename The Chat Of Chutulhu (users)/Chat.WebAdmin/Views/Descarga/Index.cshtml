@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Chat.BL.Descarga>
+
+@{
+    ViewBag.Title = "Descargas";
+}
+
+<h2>Links</h2>
+
+<p>
+    @Html.ActionLink("Nuevo Link", "Crear")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Libro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.libroId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activo)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id=item.Id }) |
+            @Html.ActionLink("Detalle", "Detalle", new { id=item.Id }) |
+            @Html.ActionLink("Eliminar", "Eliminar", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

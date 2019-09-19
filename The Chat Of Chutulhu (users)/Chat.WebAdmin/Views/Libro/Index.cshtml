@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Chat.BL.Libro>
+
+@{
+    ViewBag.Title = "Libros";
+}
+
+<h2>Libros</h2>
+
+<p>
+    <a style="color:greenyellow" class="nav-link" href="/Libro/Crear">Añadir una nuevo Libro!</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sipnosis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activo)
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sipnosis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activo)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
+                @Html.ActionLink("Detalle", "Detalle", new { id = item.Id }) |
+                @Html.ActionLink("Eliminar", "Eliminar", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

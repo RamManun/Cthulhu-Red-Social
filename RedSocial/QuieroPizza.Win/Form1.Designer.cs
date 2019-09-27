@@ -1,4 +1,4 @@
-﻿namespace QuieroPizza.Win
+﻿namespace RedSocial.Win
 {
     partial class Form1
     {
@@ -56,7 +56,7 @@
             // 
             // listadeProductosBindingSource
             // 
-            this.listadeProductosBindingSource.DataSource = typeof(QuieroPizza.BL.Libro);
+            this.listadeProductosBindingSource.DataSource = typeof(RedSocial.BL.Libro);
             // 
             // listadeProductosBindingNavigator
             // 

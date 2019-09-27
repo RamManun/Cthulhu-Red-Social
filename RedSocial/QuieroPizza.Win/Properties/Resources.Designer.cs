@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace QuieroPizza.Win.Properties
+namespace RedSocial.Win.Properties
 {
 
 

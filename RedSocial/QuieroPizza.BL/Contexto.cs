@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuieroPizza.BL
+namespace RedSocial.BL
 {
     public class Contexto: DbContext
     {     

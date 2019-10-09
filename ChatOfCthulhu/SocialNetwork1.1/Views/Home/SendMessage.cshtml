@@ -1,0 +1,12 @@
+﻿@model SocialNetwork1._1.Models.Message
+
+<div id="new_message_place"></div>
+<div class="media">
+    <a class="media-left" href="@Url.Action("Index", "Home", new { id = Model.Sender.Id }, null)">
+        <img src="@Url.Content("~/Images/")/@Model.Sender.Photo" class="media-object img-circle" style="width:50px">
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading">@Model.Sender.UserName <small><i>Postear @Model.SendingTime.ToShortTimeString()</i></small></h4>
+        <p>@Model.Content</p>
+    </div>
+</div>

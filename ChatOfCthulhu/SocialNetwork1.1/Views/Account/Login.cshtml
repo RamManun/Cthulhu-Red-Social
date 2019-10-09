@@ -1,0 +1,45 @@
+﻿@model SocialNetwork1._1.Models.LoginModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Login";
+}
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('/ArchLogin/images/bg-01.jpg');">
+        <div class="wrap-login100 p-t-30 p-b-50">
+            <span class="login100-form-title p-b-41">
+                Iniciar Sesion
+            </span>
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+
+                <form class="login100-form validate-form p-b-33 p-t-5">
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter username">
+                        <input class="input100" type="text" name="UserName" placeholder="Nombre de Usuario">
+                        <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Enter password">
+                        <input class="input100" type="password" name="Password" placeholder="Contraseña">
+                        <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn m-t-32">
+                        <link rel="stylesheet" href="" />
+                        <button class="login100-form-btn btn btn-success">
+                            Iniciar
+                        </button>
+                    </div>
+                    <div>
+                        @Html.ActionLink("Registrate", "Register")
+                    </div>
+
+                </form>
+        }
+            </div>
+    </div>
+</div>

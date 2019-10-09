@@ -1,0 +1,27 @@
+﻿@model SocialNetwork.BL.Categoria
+
+@{
+    ViewBag.Title = "Detalle";
+}
+<div class="container-fluid jumbotron-fluid stay mt-5 pt-5 pb-5">
+    <h2>Detalle</h2>
+
+    <div>
+        <h4>Categoria</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Descripcion)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Editar", "Editar", new { id = Model.Id }) |
+        @Html.ActionLink("Regresar", "Index")
+    </p>
+</div>

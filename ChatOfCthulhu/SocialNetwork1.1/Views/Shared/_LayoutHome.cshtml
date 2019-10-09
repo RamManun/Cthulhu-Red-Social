@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+@{
+    Layout = null;
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>@ViewBag.Title</title>
+</head>
+<body bgcolor="#A2D9CE">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-collapse collapse pull-right">
+                <ul class="nav navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a href="@Url.Action("UserSearch", "Home")"><span class="glyphicon glyphicon-search"></span> Search</a></li>
+                        <li>@Html.ActionLink("Salir", "Logout", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Iniciar Sesion", "Login", "Account")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    @{
+        Html.RenderPartial("_PageHeader");
+    }
+    <font color="Black">
+        <div>
+            @RenderBody()
+        </div>
+
+        <footer>
+            <p>&copy; @DateTime.Now.Year - ASP.NET Chat Of Cthulhu</p>
+        </footer>
+    </font>
+</body>
+</html>

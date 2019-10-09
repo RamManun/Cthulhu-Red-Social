@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<SocialNetwork1._1.Models.Message>
+
+@{
+    ViewBag.Title = "Dialog";
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="container">
+            <div id="new_message_place"></div>
+            @foreach (var message in Model)
+            {
+                <div class="media">
+                    <a class="media-left" href="@Url.Action("Index", "Home", new { id = message.Sender.Id }, null)">
+                        <img src="@Url.Content("~/Images/")/@message.Sender.Photo" class="media-object img-circle" style="width:50px">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">@message.Sender.UserName <small><i>Posted @message.SendingTime.ToShortTimeString()</i></small></h4>
+                        <p>@message.Content</p>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="text-center">
+            @using (Ajax.BeginForm("SendMessage", new AjaxOptions { UpdateTargetId = "new_message_place", InsertionMode = InsertionMode.ReplaceWith }))
+            {
+                <input name="ReceiverId" id="receiver" value="@ViewBag.NewMessageReceiverId" hidden>
+                <input name="SenderId" id="sender" value="@ViewBag.NewMessageSenderId" hidden>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="form-group">
+                            <textarea class="form-control" name="Content" id="content" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-6">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success btn-block" id="messageSubmit">
+                                Enviar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section scripts {
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+    @Scripts.Render("~/Scripts/jquery.signalR-2.2.1.min.js")
+    @Scripts.Render("~/signalr/hubs")
+    <script>
+        $(function () {
+            var chat = $.connection.dialogHub;
+            chat.client.addMessage = function (message) {
+                $('#new_message_place').replaceWith('<div id="new_message_place"></div>' +
+                    '<div class="media"><a class="media-left" href="Index/' +
+                    htmlEncode(message.SenderId)+
+                    '"><img src="@Url.Content("~/Images/")/' +
+                    htmlEncode(message.SenderPhoto)+
+                    '" class="media-object img-circle" style="width:50px"></a><div class="media-body"><h4 class="media-heading">' +
+                    htmlEncode(message.SenderName)+
+                    ' <small><i>Posted ' +
+                     htmlEncode(message.time) +
+                     '</i></small></h4><p>' +
+                    htmlEncode(message.content)+
+                    '</p></div></div>');
+            };
+            $.connection.hub.start().done(function () {
+                $('#messageSubmit').click(function () {
+                    var date = new Date();
+                    var time = date.getHours() + ":" + date.getMinutes();
+                    var msg = {
+                        'SenderId': $('#sender').val(),
+                        'content': $('#content').val(),
+                        'time': time,
+                    };
+                    chat.server.send(msg);
+                });
+            });
+        });
+        function htmlEncode(value) {
+            var encodedValue = $('<div />').text(value).html();
+            return encodedValue;
+        }
+    </script>
+}

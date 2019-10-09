@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SocialNetwork1._1.Models.ApplicationUser>
+
+@{
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    ViewBag.Title = "UserSearch";
+}
+
+<div class="row">
+    <div class="col-md-9">
+        @if (Model != null)
+        {
+            if (Model.Count() == 0)
+            {
+                <h4>Nothing found :(</h4>
+            }
+            else
+            {
+                @Html.Partial("~/Views/Partial/UserList.cshtml")
+            }
+        }
+    </div>
+    <div class="col-md-3">
+        <aside>
+            @using (Html.BeginForm("UserSearch", "Home", FormMethod.Post, new { role = "form", @class = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <div>
+                    @Html.ValidationSummary()
+                    <div class="form-group">
+                        <input class="form-control" name="UserName" id="UsrName" placeholder="Nombre de Usuario">
+                    </div>
+
+                    <div class="form-group">
+                        <input class="form-control" name="SurName" id="SurName" placeholder="Nombre Completo">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="AgeMin" id="AgeMin" placeholder="Edad minima">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="AgeMax" id="AgeMax" placeholder="Edad maxima">
+                    </div>
+
+                    <div class="form-group">
+                        <div class="radio-inline"><input type="radio" name="Gender" id="Gender" value="Man">Masculino</div>
+                        <div class="radio-inline"><input type="radio" name="Gender" id="Gender" value="Woman">Femenino</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info btn-block">
+                                    Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </aside>
+    </div>
+</div>

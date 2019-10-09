@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNet.Identity;
+
+@model SocialNetwork1._1.Models.ApplicationUser
+@{
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    ViewBag.Title = "Home Page";
+}
+<Body bgcolor="#C8E6C9">
+    <div class="row">
+        <div class="col-md-4">
+            <p class="text-center">
+                <img src="@Url.Content("~/Images/")/@Model.Photo" class="img-thumbnail" width="250" height="250">
+            </p>
+            <p>
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        @if (Model.Id != User.Identity.GetUserId())
+                        {
+                            if ((Model.FirstFriends != null && Model.FirstFriends.Select(u => u.Id).Contains(User.Identity.GetUserId())) || (Model.SecondFriends != null && Model.SecondFriends.Select(u => u.Id).Contains(User.Identity.GetUserId())))
+                            {
+                                <button onclick="location.href='@Url.Action("Dialog", "Home", new { id_1 = Model.Id, id_2 = Model.Id }, null)';return false" class="btn btn-default btn-block">
+                                    Enviar Mensaje
+                                </button>
+
+                                <button onclick="location.href='@Url.Action("DeleteFriend", "Home", new { id = Model.Id })';return false" class="btn btn-danger btn-block">
+                                    Eliminar Amigo
+                                </button>
+                            }
+                            else
+                            {
+                                <button onclick="location.href='@Url.Action("AddFriend", "Home", new { id = Model.Id })';return false" class="btn btn-success btn-block">
+                                    Añadir Amigos
+                                </button>
+                            }
+                        }
+                    </div>
+                </div>
+            </p>
+        </div>
+        <div class="col-md-6">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Nombre de Usuario</th>
+                        <td>@Model.UserName</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre Completo</th>
+                        <td>@Model.SurName</td>
+                    </tr>
+                    <tr>
+                        <th>Edad</th>
+                        <td>@((System.DateTime.Now - Model.BirthDay).Days / 365)</td>
+                    </tr>
+                    <tr>
+                        <th>Genero</th>
+                        <td>@Model.Gender</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</Body>
+
